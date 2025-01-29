@@ -1,55 +1,73 @@
-const cardsArray = [{
-    'name': 'shell',
-    'img': 'img/blueshell.png',
+const cardsArray = [
+  {
+    "name": "pig",
+    "img": "img/pig.webp"
   },
   {
-    'name': 'star',
-    'img': 'img/star.png',
+    "name": "sheep",
+    "img": "img/sheep.webp"
   },
   {
-    'name': 'bobomb',
-    'img': 'img/bobomb.png',
+    "name": "chicken",
+    "img": "img/chicken.webp"
   },
   {
-    'name': 'mario',
-    'img': 'img/mario.png',
+    "name": "cow",
+    "img": "img/cow.webp"
   },
   {
-    'name': 'luigi',
-    'img': 'img/luigi.png',
+    "name": "horse",
+    "img": "img/horse.webp"
   },
   {
-    'name': 'peach',
-    'img': 'img/peach.png',
+    "name": "beaver",
+    "img": "img/beaver.webp"
   },
   {
-    'name': '1up',
-    'img': 'img/1up.png',
+    "name": "rabbit",
+    "img": "img/rabbit.webp"
   },
   {
-    'name': 'mushroom',
-    'img': 'img/mushroom.png',
+    "name": "fox",
+    "img": "img/fox.webp"
   },
   {
-    'name': 'thwomp',
-    'img': 'img/thwomp.png',
+    "name": "racoon",
+    "img": "img/racoon.webp"
   },
   {
-    'name': 'bulletbill',
-    'img': 'img/bulletbill.png',
+    "name": "wolf",
+    "img": "img/wolf.webp"
   },
   {
-    'name': 'coin',
-    'img': 'img/coin.png',
+    "name": "bear",
+    "img": "img/bear.webp"
   },
   {
-    'name': 'goomba',
-    'img': 'img/goomba.png',
-  },
+    "name": "squirrel",
+    "img": "img/squirrel.webp"
+  }
 ];
 
-const gameGrid = cardsArray
-  .concat(cardsArray)
+function createImageCardsArray(cardsArray) {
+  return cardsArray.map(card => ({
+    ...card,
+    type: "image"
+  }));
+}
+
+function createTextCardsArray(cardsArray) {
+  return cardsArray.map(card => ({
+    ...card,
+    type: "text"
+  }));
+}
+
+const imageCardsArray = createImageCardsArray(cardsArray);
+const textCardsArray = createTextCardsArray(cardsArray);
+
+const gameGrid = imageCardsArray
+  .concat(textCardsArray)
   .sort(() => 0.5 - Math.random());
 
 let firstGuess = '';
@@ -57,6 +75,7 @@ let secondGuess = '';
 let count = 0;
 let previousTarget = null;
 let delay = 1200;
+let score = 0;
 
 const game = document.getElementById('game');
 const grid = document.createElement('section');
@@ -64,7 +83,7 @@ grid.setAttribute('class', 'grid');
 game.appendChild(grid);
 
 gameGrid.forEach(item => {
-  const { name, img } = item;
+  const { name, img, type } = item;
 
   const card = document.createElement('div');
   card.classList.add('card');
@@ -75,7 +94,8 @@ gameGrid.forEach(item => {
 
   const back = document.createElement('div');
   back.classList.add('back');
-  back.style.backgroundImage = `url(${img})`;
+  if (type == 'text') back.textContent = name;
+  else back.style.backgroundImage = `url(${img})`;
 
   grid.appendChild(card);
   card.appendChild(front);
@@ -83,6 +103,10 @@ gameGrid.forEach(item => {
 });
 
 const match = () => {
+  console.log("increment score");
+  score++;
+  const scoreboard = document.getElementById('scoreboard');
+  scoreboard.textContent = score;
   const selected = document.querySelectorAll('.selected');
   selected.forEach(card => {
     card.classList.add('match');
@@ -118,10 +142,13 @@ grid.addEventListener('click', event => {
     count++;
     if (count === 1) {
       firstGuess = clicked.parentNode.dataset.name;
-      console.log(firstGuess);
+      const audioPlayer = document.getElementById(firstGuess);
+      audioPlayer.play();
       clicked.parentNode.classList.add('selected');
     } else {
       secondGuess = clicked.parentNode.dataset.name;
+      const audioPlayer = document.getElementById(secondGuess);
+      audioPlayer.play();
       console.log(secondGuess);
       clicked.parentNode.classList.add('selected');
     }

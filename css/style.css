@@ -57,3 +57,12 @@ body {
 .match .front {
   background: #6589F9 !important;
 }
+
+#scoreboard {
+  color: white;
+  width: 100%;
+  text-align: center;
+  display: block;
+  font-size: 79px;
+  padding: 20px;
+}

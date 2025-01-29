@@ -48,16 +48,19 @@ body {
 }
 
 .front {
-  background: #FAB942 url('../img/question.gif') no-repeat center center / contain;
+  background: #FAB942 url('../img/question.webp') no-repeat center center / contain;
 }
 
 .back {
   -webkit-transform: rotateY(180deg);
           transform: rotateY(180deg);
-  background-color: #6589F9;
+  background-color: #fff;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
+  font-size: 30px;
+  padding-top: 50px;
+  text-align: center;
 }
 
 .selected {
@@ -67,4 +70,13 @@ body {
 
 .match .front {
   background: #6589F9 !important;
+}
+
+#scoreboard {
+  color: white;
+  width: 100%;
+  text-align: center;
+  display: block;
+  font-size: 79px;
+  padding: 20px;
 }
