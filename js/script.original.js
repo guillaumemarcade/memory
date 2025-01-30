@@ -68,7 +68,7 @@ const textCardsArray = createTextCardsArray(cardsArray);
 
 const gameGrid = imageCardsArray
   .concat(textCardsArray)
-  .sort(() => 0.5 - Math.random());
+  // .sort(() => 0.5 - Math.random());
 
 let firstGuess = '';
 let secondGuess = '';
@@ -76,6 +76,8 @@ let count = 0;
 let previousTarget = null;
 let delay = 1200;
 let score = 0;
+let attemptsCount = 0;
+let lastMatch = "";
 
 const game = document.getElementById('game');
 const grid = document.createElement('section');
@@ -102,12 +104,29 @@ gameGrid.forEach(item => {
   card.appendChild(back);
 });
 
+const updateScoreBoard = () => {
+  if (score == cardsArray.length) document.body.classList.add("success");
+  const scoreboard = document.getElementById('scoreboard');
+  scoreboard.textContent = score + " / " + attemptsCount;
+
+  const gamificationDiv = document.getElementById('gamification');
+  const image = gamificationDiv.querySelector('img');
+
+  // Change the image source
+  if (image && lastMatch != "") {
+    console.log(`img/${lastMatch}0.webp`);
+      image.src = `img/${lastMatch}0.webp`; // Replace with your new image URL
+      console.log(image.src);
+  }
+};
+
 const match = () => {
-  console.log("increment score");
   score++;
   const scoreboard = document.getElementById('scoreboard');
   scoreboard.textContent = score;
   const selected = document.querySelectorAll('.selected');
+  lastMatch = selected[0].dataset.name;
+  console.log("lastMatch="+lastMatch);
   selected.forEach(card => {
     card.classList.add('match');
   });
@@ -118,6 +137,8 @@ const resetGuesses = () => {
   secondGuess = '';
   count = 0;
   previousTarget = null;
+  attemptsCount++;
+  updateScoreBoard();
 
   var selected = document.querySelectorAll('.selected');
   selected.forEach(card => {

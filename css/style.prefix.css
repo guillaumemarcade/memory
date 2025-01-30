@@ -10,6 +10,10 @@ body {
   background: #6589F9;
 }
 
+body.success {
+  background: #a8ed07;
+}
+
 .grid {
   max-width: 960px;
   margin: 0 auto;
@@ -72,11 +76,26 @@ body {
   background: #6589F9 !important;
 }
 
+body.success .match .front {
+  background: #a8ed07 !important;
+}
+
 #scoreboard {
   color: white;
-  width: 100%;
   text-align: center;
-  display: block;
   font-size: 79px;
   padding: 20px;
+  height: 300px;
+  width: 300px;
+  padding-top: 145px;
+}
+
+#gamification {
+  text-align: center;
+  height: 300px;
+  width: 300px;
+}
+
+#gamification img {
+  width: 300px;
 }
