@@ -68,7 +68,7 @@ const textCardsArray = createTextCardsArray(cardsArray);
 
 const gameGrid = imageCardsArray
   .concat(textCardsArray)
-  // .sort(() => 0.5 - Math.random());
+  .sort(() => 0.5 - Math.random());
 
 let firstGuess = '';
 let secondGuess = '';
